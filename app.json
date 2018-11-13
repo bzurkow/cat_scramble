@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Cat_Scramble",
+    "description": "This project is really great.",
+    "slug": "Cat_Scramble",
+    "privacy": "public",
+    "sdkVersion": "31.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/catIcon.png",
+    "splash": {
+      "image": "./assets/catIcon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}

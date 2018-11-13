@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Cat_Scramble",
+    "name": "CatScramble!",
     "description": "This project is really great.",
-    "slug": "Cat_Scramble",
+    "slug": "cat-scramble",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],

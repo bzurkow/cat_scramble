@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Cats from '../../assets/Cats';
 
@@ -110,6 +110,14 @@ class Game extends React.Component {
   }
 }
 
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
+
+let w = width < 1000 ? 360 : width*.8
+let h = width < 1000 ? 540 : width*1.2
+
+let iW = width < 1000 ? 90 : width*.2
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -118,26 +126,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   gameView: {
-    width: 360,
-    height: 540,
+    width: w,
+    height: h,
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
   gameComplete: {
-    width: 364,
-    height: 544,
+    width: w+4,
+    height: h+4,
     flexDirection: 'row',
     flexWrap: 'wrap',
     borderWidth: 2,
     borderColor: '#00ff00'
   },
   image: {
-    height: 90,
-    width: 90
+    height: iW,
+    width: iW
   },
   null: {
-    height: 90,
-    width: 90,
+    height: iW,
+    width: iW,
     backgroundColor: '#fff'
   }
 });

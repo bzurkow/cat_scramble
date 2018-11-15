@@ -27,10 +27,10 @@ class Levels extends React.Component {
       <TouchableHighlight
         key={i}
         style={styles.listTH}
-        onPress={()=>{
+        onPress={ i<self.length-1 ? ()=>{
           this.props.setGame(i)
           this.props.navigation.navigate('Game')
-        }}
+        } : null}
         >
         { i<self.length-1 ?
           <View style={styles.listView}>

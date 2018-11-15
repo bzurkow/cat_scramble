@@ -71,14 +71,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   listTH: {
-    flex: 2,
     backgroundColor: "#fff",
     padding: 10,
     width: width,
     alignItems: 'flex-start',
     justifyContent: 'center',
-    marginTop: 10,
-    marginBottom: 10
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderTopWidth: 1,
+    borderBottomWidth: 1
   },
   listView: {
     flexDirection: 'row',

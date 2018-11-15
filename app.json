@@ -23,7 +23,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.benzurkow.cat-scramble"
+      "bundleIdentifier": "com.benzurkow.cat-scramble",
+      "buildNumber": "2"
     }
   }
 }

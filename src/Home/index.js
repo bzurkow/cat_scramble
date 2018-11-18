@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
-export default class Home extends React.Component {
+import HowTo from './howToPlay';
+
+export default class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'CatScramble!',
+    headerBackTitle: 'Home',
     headerStyle: {
       backgroundColor: '#FF69B4',
     },
@@ -22,6 +25,7 @@ export default class Home extends React.Component {
           >
           <Text style={styles.text}>Play Now!</Text>
         </TouchableHighlight>
+        <HowTo />
       </View>
     );
   }

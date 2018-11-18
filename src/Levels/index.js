@@ -4,6 +4,7 @@ import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableHighlight, Vi
 import { Icon } from 'react-native-elements';
 
 import { setGame } from '../reducers/onGame';
+import Check from './check';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -11,6 +12,7 @@ const height = Dimensions.get('window').height;
 class Levels extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'CatScramble!',
+    headerBackTitle: 'Levels',
     headerStyle: {
       backgroundColor: '#FF69B4',
     },
@@ -41,6 +43,7 @@ class Levels extends React.Component {
  */}           
             <Text style={styles.text}>Cat {i+1}</Text>
             <Text style={styles.difficulty}>{i<3?'Easy':i<8?'Medium': i<10 ? 'Hard' : 'Impossible'}</Text>
+            { this.props.completed.includes(i) ? <Check /> : null}
             <Icon 
               type='material-community'
               name='arrow-right'
@@ -107,7 +110,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  completed: state.completed
+});
 
 const mapDispatchToProps = dispatch => ({
   setGame: game => dispatch(setGame(game))

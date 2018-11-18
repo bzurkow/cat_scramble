@@ -5,6 +5,8 @@ import { ActivityIndicator, Dimensions, Image, StyleSheet, Text, TouchableOpacit
 import Cats from '../../assets/Cats';
 import Check from './check';
 
+import { addGame } from '../reducers/completed';
+
 const shuffle = a => {
   for(let i = a.length-1; i>0; i--) {
     const j = Math.floor(Math.random()*(i+1));
@@ -25,6 +27,7 @@ class Game extends React.Component {
     };
 
     this.onPress = this.onPress.bind(this);
+    // this.onRefresh = this.onRefresh.bind(this);
   };
 
   onPress(i){
@@ -40,6 +43,7 @@ class Game extends React.Component {
     
     if(this.state.cat.every((el, index) => el===newCurrent[index])){
       this.setState({complete: true})
+      this.props.addCompleted(this.props.onGame)
     };
 
     this.setState({
@@ -71,7 +75,7 @@ class Game extends React.Component {
         style={{
           height: w/mod,
           width: w/mod,
-          backgroundColor: '#A9A9A9'
+          backgroundColor: '#FF69B4'
         }}
         >
       </View>
@@ -85,9 +89,21 @@ class Game extends React.Component {
 
     this.setState({currentCat: shuffledCat})
     let nullIndex = shuffledCat.indexOf(cat[cat.length-1]);
-    this.setState({nullIndex: nullIndex})
+    this.setState({nullIndex: nullIndex})    
+  };
+
+  // onRefresh() {
+    // not sure if this works yet -- need to modify to get it into the title.. todo for another build! 
     
-  }
+  //   console.log('hit')
+  //   let newCurrent = shuffle(this.state.currentCat)
+  //   let newNullIndex = newCurrent.indexOf(this.state.cat[this.state.cat.length-1])
+  //   this.setState({
+  //     nullIndex: newNullIndex,
+  //     currentIndex: newCurrent,
+  //     complete: false
+  //   })
+  // };
 
   static navigationOptions = ({ navigation }) => ({
     title: 'CatScramble!',
@@ -97,11 +113,10 @@ class Game extends React.Component {
     headerTintColor: '#fff',
     headerTitleStyle: {
       fontWeight: 'bold',
-    },
+    }
   });
   
   render() {
-
     return (
       <View style={styles.container}>
       { !this.state.currentCat ? <ActivityIndicator color="#000" size='large' /> :
@@ -152,13 +167,19 @@ const styles = StyleSheet.create({
     height: iW,
     width: iW,
     backgroundColor: '#A9A9A9'
+  },
+  headerRightIcon: {
+    marginRight: 5,
+    zIndex: 100
   }
 });
 
 const mapStateToProps = state => ({
-  onGame: state.onGame
+  onGame: state.onGame,
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  addCompleted: game => dispatch(addGame(game))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game)

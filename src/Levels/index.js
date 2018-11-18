@@ -22,7 +22,7 @@ class Levels extends React.Component {
 
 
   render() {
-    let arr = [0, 1, 2, 3, 4, 5];
+    let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     let list = arr.map((el, i, self) => (
       <TouchableHighlight
         key={i}
@@ -40,6 +40,7 @@ class Levels extends React.Component {
               />
  */}           
             <Text style={styles.text}>Cat {i+1}</Text>
+            <Text style={styles.difficulty}>{i<3?'Easy':i<8?'Medium': i<10 ? 'Hard' : 'Impossible'}</Text>
             <Icon 
               type='material-community'
               name='arrow-right'
@@ -50,9 +51,11 @@ class Levels extends React.Component {
       </TouchableHighlight>
     ))
     return (
-      <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        >
         {list}
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -62,13 +65,13 @@ const styles = StyleSheet.create({
     resizeMode: 'center',
     width: 40,
     height: 60
-
   },
   container: {
-    flex: 1,
+   // flex: 1,
     backgroundColor: '#b0e0e6',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+    height: '150%'
   },
   listTH: {
     backgroundColor: "#fff",
@@ -90,6 +93,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginLeft: 20,
+    marginRight: 20
+  },
+  difficulty: {
+    fontSize: 20,
+    fontStyle: 'italic',
     marginRight: 20
   },
   textSoon: {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { ActivityIndicator, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Cats from '../../assets/Cats';
+import Check from './check';
 
 const shuffle = a => {
   for(let i = a.length-1; i>0; i--) {
@@ -12,20 +13,11 @@ const shuffle = a => {
   return a;
 };
 
-// function shuffle(a) {
-//     for (let i = a.length - 1; i > 0; i--) {
-//         const j = Math.floor(Math.random() * (i + 1));
-//         [a[i], a[j]] = [a[j], a[i]];
-//     }
-//     return a;
-// }
-
 class Game extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      correct: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-      actual: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+      correct: null,
       nullIndex: null,
       complete: false,
       cat: null,
@@ -57,6 +49,8 @@ class Game extends React.Component {
   }
 
   componentDidMount(){
+    const length = Cats[`cat${this.props.onGame}`].length
+    let mod = length === 24 ? 4 : length===6 ? 2 : length===54 ? 6 : 8
     let cat = Cats[`cat${this.props.onGame}`].map((el, i, arr) => {
       return i<arr.length-1 ? (
       <TouchableOpacity
@@ -65,24 +59,32 @@ class Game extends React.Component {
         >
         <Image 
           source={el}
-          style={styles.image}
+          style={{
+            height: w/mod,
+            width: w/mod
+          }}
           />
       </TouchableOpacity>
     ) : (
       <View
         key={i}
-        style={styles.null}
+        style={{
+          height: w/mod,
+          width: w/mod,
+          backgroundColor: '#A9A9A9'
+        }}
         >
       </View>
     )});
 
-    this.setState({cat: cat})
+    let correctArr = Array(cat.length).fill(0).map((el, i)=>i)
+
+    this.setState({cat: cat, correct: correctArr})
     let cat2 = Object.assign([], cat)
     let shuffledCat = shuffle(cat2)
 
     this.setState({currentCat: shuffledCat})
-    let nullIndex = shuffledCat.indexOf(cat[23]);
-    // console.log(nullIndex)
+    let nullIndex = shuffledCat.indexOf(cat[cat.length-1]);
     this.setState({nullIndex: nullIndex})
     
   }
@@ -99,10 +101,12 @@ class Game extends React.Component {
   });
   
   render() {
+
     return (
       <View style={styles.container}>
       { !this.state.currentCat ? <ActivityIndicator color="#000" size='large' /> :
         <View style={!this.state.complete ? styles.gameView : styles.gameComplete}>
+          {this.state.complete ? <Check /> : null }
           {this.state.currentCat}
         </View> }
       </View>
@@ -116,7 +120,8 @@ const height = Dimensions.get('window').height;
 let w = width < 1000 ? 360 : width*.8
 let h = width < 1000 ? 540 : width*1.2
 
-let iW = width < 1000 ? 90 : width*.2
+let iW = w/4
+
 
 const styles = StyleSheet.create({
   container: {
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
   null: {
     height: iW,
     width: iW,
-    backgroundColor: '#fff'
+    backgroundColor: '#A9A9A9'
   }
 });
 
